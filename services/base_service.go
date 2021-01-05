@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 )
@@ -13,11 +14,11 @@ type BaseService struct {
 //IClient implements these methods to become a type of IClient used by the BaseService
 type IClient interface {
 	BuildURLFromPathParams(url.Values, string, string, interface{}) (url.URL, error)
-	Get(requestParams RequestParams) (*http.Response, error)
-	Post(requestParams RequestParams) (*http.Response, error)
-	Patch(requestParams RequestParams) (*http.Response, error)
-	Put(requestParams RequestParams) (*http.Response, error)
-	Delete(requestParams RequestParams) (*http.Response, error)
+	Get(requestParams RequestParams, ctx context.Context) (*http.Response, error)
+	Post(requestParams RequestParams, ctx context.Context) (*http.Response, error)
+	Patch(requestParams RequestParams, ctx context.Context) (*http.Response, error)
+	Put(requestParams RequestParams, ctx context.Context) (*http.Response, error)
+	Delete(requestParams RequestParams, ctx context.Context) (*http.Response, error)
 }
 
 // RequestParams contains all the optional request URL parameters
