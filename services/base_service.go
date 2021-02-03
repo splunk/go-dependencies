@@ -31,3 +31,8 @@ type RequestParams struct {
 	// Headers are additional headers to add to the request
 	Headers map[string]string
 }
+
+//HeaderParamsParser is an interface to implement parsing any types of headers including user-defined that can be sent along with the api request
+type HeaderParamsParser interface {
+	Parse() (map[string]string, error)
+}
