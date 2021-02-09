@@ -173,3 +173,30 @@ func toURLValues(keyName string, value reflect.Value, explode string, style Open
 	}
 	return values
 }
+
+// ParseHeaderParams parses a struct into http.Header params based on its "key" tag
+func ParseHeaderParams(h interface{}) http.Header {
+	var headers = make(http.Header)
+	indirect := reflect.Indirect(reflect.ValueOf(h))
+	//Only supports parsing of headerParams of type struct
+	if indirect.Kind() != reflect.Struct {
+		return nil
+	}
+	value := reflect.ValueOf(h)
+	for f := 0; f < value.Type().NumField(); f++ {
+		field := value.Type().Field(f)
+		fval := value.FieldByName(field.Name)
+		// If `key:` tag is specified, use it otherwise default to field name
+		fkey := field.Name
+		if v, ok := field.Tag.Lookup("key"); ok {
+			fkey = v
+		}
+		//Only supports headers with values of type string
+		if fval.Kind() != reflect.String {
+			return nil
+		}
+		valStr := fval.String()
+		headers.Add(fkey, valStr)
+	}
+	return headers
+}
