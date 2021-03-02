@@ -1,6 +1,7 @@
 package services
 
 import (
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -35,4 +36,11 @@ type RequestParams struct {
 //HeaderParamsParser is an interface to implement parsing any types of headers including user-defined that can be sent along with the api request
 type HeaderParamsParser interface {
 	Parse() (map[string]string, error)
+}
+
+// FormData contains form data parameters required to process content-type multipart/form-data
+type FormData struct {
+	Key      string
+	Filename string
+	Stream   io.Reader
 }
