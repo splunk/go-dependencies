@@ -14,11 +14,11 @@ type BaseService struct {
 //IClient implements these methods to become a type of IClient used by the BaseService
 type IClient interface {
 	BuildURLFromPathParams(url.Values, string, string, interface{}) (url.URL, error)
-	Get(requestParams RequestParams, ctx context.Context) (*http.Response, error)
-	Post(requestParams RequestParams, ctx context.Context) (*http.Response, error)
-	Patch(requestParams RequestParams, ctx context.Context) (*http.Response, error)
-	Put(requestParams RequestParams, ctx context.Context) (*http.Response, error)
-	Delete(requestParams RequestParams, ctx context.Context) (*http.Response, error)
+	Get(ctx context.Context, requestParams RequestParams) (*http.Response, error)
+	Post(ctx context.Context, requestParams RequestParams) (*http.Response, error)
+	Patch(ctx context.Context, requestParams RequestParams) (*http.Response, error)
+	Put(ctx context.Context, requestParams RequestParams) (*http.Response, error)
+	Delete(ctx context.Context, requestParams RequestParams) (*http.Response, error)
 }
 
 // RequestParams contains all the optional request URL parameters
