@@ -19,6 +19,9 @@ type IClient interface {
 	Patch(requestParams RequestParams) (*http.Response, error)
 	Put(requestParams RequestParams) (*http.Response, error)
 	Delete(requestParams RequestParams) (*http.Response, error)
+	GetDefaultTenant() string
+	GetURL(serviceCluster string) *url.URL
+	BuildHost(serviceCluster string, appendToHost string) string
 }
 
 // RequestParams contains all the optional request URL parameters
